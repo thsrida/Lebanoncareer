@@ -1109,6 +1109,16 @@
                 snapshot.forEach((doc) => { allJobs.push({ id: doc.id, ...doc.data() }); });
                 renderJobs(allJobs);
                 renderMyPosts();
+                
+                // التحقق من وجود رابط مشاركة وظيفة عند التحميل (مثال: ?jobId=xyz)
+                const urlParams = new URLSearchParams(window.location.search);
+                const sharedJobId = urlParams.get('jobId');
+                if (sharedJobId) {
+                    const targetJob = allJobs.find(j => j.id === sharedJobId);
+                    if (targetJob) {
+                        openJobDetails(targetJob);
+                    }
+                }
             }, () => {});
         }
 
@@ -1136,7 +1146,7 @@
                                     <span class="text-[10px] text-gray-400 font-medium"><i class="fa-regular fa-clock ms-1"></i>${timeAgo}</span>
                                 </div>
                                 <div class="flex items-center gap-1.5">
-                                    <button onclick="shareJob('${job.title}', '${job.company}')" class="text-gray-400 hover:text-brand-600 transition text-sm p-1.5 bg-gray-50 rounded-xl"><i class="fa-solid fa-share-nodes"></i></button>
+                                    <button onclick="shareJob('${job.id}', '${job.title}', '${job.company}')" class="text-gray-400 hover:text-brand-600 transition text-sm p-1.5 bg-gray-50 rounded-xl" title="Share Job Link"><i class="fa-solid fa-share-nodes"></i></button>
                                     <button onclick="toggleSaveJob('${job.id}')" class="text-gray-400 hover:text-amber-500 transition text-sm p-1.5 bg-gray-50 rounded-xl"><i class="${isSaved ? 'fa-solid text-amber-500' : 'fa-regular'} fa-bookmark"></i></button>
                                 </div>
                             </div>
@@ -1172,12 +1182,13 @@
             renderJobs(filtered);
         }
 
-        function shareJob(title, company) {
+        function shareJob(jobId, title, company) {
+            const shareUrl = `${window.location.origin}${window.location.pathname}?jobId=${jobId}`;
             if (navigator.share) {
-                navigator.share({ title: title, text: `${title} at ${company}`, url: window.location.href }).catch(() => {});
+                navigator.share({ title: title, text: `${title} at ${company}`, url: shareUrl }).catch(() => {});
             } else {
-                navigator.clipboard.writeText(window.location.href);
-                showToast(currentLang === 'ar' ? 'تم نسخ الرابط بنجاح!' : 'Link copied successfully!');
+                navigator.clipboard.writeText(shareUrl);
+                showToast(currentLang === 'ar' ? 'تم نسخ رابط الوظيفة المباشر بنجاح!' : 'Job direct link copied successfully!');
             }
         }
 
@@ -1245,6 +1256,7 @@
                             <div class="flex items-start justify-between mb-3">
                                 <span class="text-[11px] font-bold bg-brand-50 text-brand-600 px-3 py-1 rounded-full">${job.type}</span>
                                 <div class="flex items-center gap-1.5">
+                                    <button onclick="shareJob('${job.id}', '${job.title}', '${job.company}')" class="text-gray-400 hover:text-brand-600 transition text-sm p-1.5 bg-gray-50 rounded-xl" title="Share"><i class="fa-solid fa-share-nodes"></i></button>
                                     <button onclick='openEditJobModal(${JSON.stringify(job)})' class="text-brand-500 hover:text-brand-700 transition text-sm p-1.5 bg-gray-50 rounded-xl" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
                                     <button onclick="confirmDelete('job', '${job.id}')" class="text-rose-500 hover:text-rose-700 transition text-sm p-1.5 bg-gray-50 rounded-xl" title="Delete"><i class="fa-solid fa-trash"></i></button>
                                 </div>
