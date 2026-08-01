@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - 404</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen">
+
+    <div class="text-center px-4">
+        <!-- Error Code -->
+        <h1 class="text-9xl font-extrabold text-indigo-600 tracking-widest">404</h1>
+        
+        <!-- Error Badge -->
+        <div class="bg-indigo-500 text-white px-2 text-sm rounded rotate-12 absolute inline-block translate-y-[-70px] translate-x-[-20px]">
+            Page Not Found
+        </div>
+        
+        <p class="text-2xl font-bold text-gray-800 mt-4">Oops! You've found a dead end.</p>
+        <p class="text-gray-500 mt-2 mb-8">The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+        
+        <!-- Back to Home Button -->
+        <a href="/" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            Back to Home
+        </a>
+    </div>
+
+</body>
+</html>
