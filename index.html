@@ -441,7 +441,7 @@
         </div>
     </div>
 
-    <!-- نافذة مشاركة الوظيفة (بدون زر save job وبشكل مرتب) -->
+    <!-- نافذة مشاركة الوظيفة (مرتبة بدون أي أزرار حفظ) -->
     <div id="share-job-modal" class="fixed inset-0 modal-overlay z-50 flex items-center justify-center hidden p-4">
         <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative text-center space-y-4">
             <button onclick="closeShareModal()" class="absolute top-4 end-4 w-8 h-8 bg-gray-100 hover:bg-gray-200 text-gray-500 rounded-full flex items-center justify-center transition text-xs"><i class="fa-solid fa-xmark"></i></button>
@@ -1699,42 +1699,47 @@
                     <div class="flex items-center space-x-4 rtl:space-x-reverse">
                         <div class="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-black text-2xl shadow-inner flex-shrink-0">${cv.name.charAt(0)}</div>
                         <div class="min-w-0">
-                            <h2 class="text-xl sm:text-2xl font-black text-gray-900 truncate">${cv.name}</h2>
-                            <p class="text-sm font-bold text-emerald-600 truncate">${cv.title}</p>
-                            <span class="text-xs text-gray-400 block mt-1"><i class="fa-solid fa-location-dot ms-1"></i> ${cv.location}</span>
+                            <h2 class="text-xl font-black text-gray-900 truncate">${cv.name}</h2>
+                            <p class="text-xs font-bold text-emerald-600 mt-0.5 truncate">${cv.title}</p>
+                            <span class="text-[11px] text-gray-400 block mt-1"><i class="fa-solid fa-location-dot ms-1"></i> ${cv.location}</span>
                         </div>
                     </div>
-
+                    
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-gray-50 p-4 rounded-2xl border border-gray-100">
-                        <div>
-                            <span class="text-[11px] text-gray-400 block">${currentLang === 'ar' ? 'البريد الإلكتروني' : 'Email Address'}</span>
-                            <span class="text-xs font-bold text-gray-800 truncate block">${cv.email}</span>
-                        </div>
                         <div>
                             <span class="text-[11px] text-gray-400 block">${currentLang === 'ar' ? 'اللغات' : 'Languages'}</span>
                             <span class="text-xs font-bold text-gray-800">${cv.languages}</span>
+                        </div>
+                        <div>
+                            <span class="text-[11px] text-gray-400 block">${currentLang === 'ar' ? 'السيرة الذاتية' : 'Resume File'}</span>
+                            <span class="text-xs font-bold text-brand-600 truncate block"><i class="fa-solid fa-file-pdf ms-1"></i> ${cv.fileName || 'resume.pdf'}</span>
                         </div>
                     </div>
 
                     <div class="space-y-4">
                         <div>
-                            <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">${currentLang === 'ar' ? 'المهارات التقنية والمهنية' : 'Technical & Professional Skills'}</h4>
-                            <p class="text-xs sm:text-sm text-gray-700 bg-gray-50 p-3 rounded-2xl border border-gray-100">${cv.skills}</p>
+                            <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">${currentLang === 'ar' ? 'المهارات التقنية' : 'Skills'}</h4>
+                            <p class="text-xs sm:text-sm text-gray-700 bg-gray-50 p-3.5 rounded-2xl border border-gray-100">${cv.skills}</p>
                         </div>
                         <div>
-                            <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">${currentLang === 'ar' ? 'الخبرات العملية' : 'Work Experience'}</h4>
-                            <p class="text-xs sm:text-sm text-gray-700 bg-gray-50 p-3 rounded-2xl border border-gray-100 whitespace-pre-line">${cv.experience}</p>
+                            <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">${currentLang === 'ar' ? 'الخبرات المهنية' : 'Experience'}</h4>
+                            <p class="text-xs sm:text-sm text-gray-700 bg-gray-50 p-3.5 rounded-2xl border border-gray-100 whitespace-pre-line">${cv.experience}</p>
                         </div>
                         <div>
-                            <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">${currentLang === 'ar' ? 'التعليم والشهادات' : 'Education & Certificates'}</h4>
-                            <p class="text-xs sm:text-sm text-gray-700 bg-gray-50 p-3 rounded-2xl border border-gray-100 whitespace-pre-line">${cv.education} \n ${cv.certs || ''}</p>
+                            <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">${currentLang === 'ar' ? 'التعليم' : 'Education'}</h4>
+                            <p class="text-xs sm:text-sm text-gray-700 bg-gray-50 p-3.5 rounded-2xl border border-gray-100">${cv.education}</p>
                         </div>
+                        ${cv.certs ? `
+                        <div>
+                            <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">${currentLang === 'ar' ? 'الشهادات والدورات' : 'Certificates'}</h4>
+                            <p class="text-xs sm:text-sm text-gray-700 bg-gray-50 p-3.5 rounded-2xl border border-gray-100">${cv.certs}</p>
+                        </div>` : ''}
                     </div>
 
-                    <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-100">
+                    <div class="pt-4 border-t border-gray-100 flex flex-col sm:flex-row gap-3">
                         <a href="tel:${cleanPhone}" class="flex-1 px-6 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl shadow-md transition flex items-center justify-center space-x-2 rtl:space-x-reverse text-sm">
                             <i class="fa-solid fa-phone"></i>
-                            <span>${currentLang === 'ar' ? 'اتصال هاتفي' : 'Phone Call'}</span>
+                            <span>${currentLang === 'ar' ? 'اتصال هاتفي بالمرشح' : 'Call Candidate'}</span>
                         </a>
                         <a href="https://wa.me/${cleanPhone.replace('+', '')}" target="_blank" class="flex-1 px-6 py-3.5 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-2xl shadow-md transition flex items-center justify-center space-x-2 rtl:space-x-reverse text-sm">
                             <i class="fa-brands fa-whatsapp"></i>
