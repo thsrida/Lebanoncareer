@@ -2024,16 +2024,19 @@
         function closePostJobModal() {
             document.getElementById('post-job-modal').classList.add('hidden');
         }
-        function toggleJobContactInputs() {
-            const emailChk = document.getElementById('job-contact-email-chk').checked;
-            const callChk = document.getElementById('job-contact-call-chk').checked;
-            const emailInput = document.getElementById('job-contact-email');
-            const callInput = document.getElementById('job-contact-call');
-
-            if (emailChk) emailInput.classList.remove('hidden'); else emailInput.classList.add('hidden');
-            if (callChk) callInput.classList.remove('hidden'); else callInput.classList.add('hidden');
-        }
-
+  function toggleJobContactInputs() {
+    const emailChk = document.getElementById("job-contact-email-chk").checked;
+    const callChk = document.getElementById("job-contact-call-chk").checked;
+    
+    const emailInput = document.getElementById("job-contact-email");
+    const callInput = document.getElementById("job-contact-call");
+    
+    emailInput.classList.toggle("hidden", !emailChk);
+    callInput.classList.toggle("hidden", !callChk);
+    
+    emailInput.required = emailChk;
+    callInput.required = callChk;
+}
         async function handlePostJobSubmit(event) {
             event.preventDefault();
             if (!currentUser) return;
@@ -2104,16 +2107,19 @@
         function closePostCvModal() {
             document.getElementById('post-cv-modal').classList.add('hidden');
         }
-        function toggleCvContactInputs() {
-            const emailChk = document.getElementById('cv-contact-email-chk').checked;
-            const callChk = document.getElementById('cv-contact-call-chk').checked;
-            const emailInput = document.getElementById('cv-contact-email');
-            const callInput = document.getElementById('cv-contact-call');
-
-            if (emailChk) emailInput.classList.remove('hidden'); else emailInput.classList.add('hidden');
-            if (callChk) callInput.classList.remove('hidden'); else callInput.classList.add('hidden');
-        }
-
+     function toggleCvContactInputs() {
+    const emailChk = document.getElementById("cv-contact-email-chk").checked;
+    const callChk = document.getElementById("cv-contact-call-chk").checked;
+    
+    const emailInput = document.getElementById("cv-contact-email");
+    const callInput = document.getElementById("cv-contact-call");
+    
+    emailInput.classList.toggle("hidden", !emailChk);
+    callInput.classList.toggle("hidden", !callChk);
+    
+    emailInput.required = emailChk;
+    callInput.required = callChk;
+}
         async function handlePostCvSubmit(event) {
             event.preventDefault();
             if (!currentUser) return;
